@@ -24,8 +24,14 @@ namespace DiscordBot2._0
     // the Dj/Audio Part for
     partial class DiscordBotWorker
     {
+        /// <summary>
+        /// Our Speach engien
+        /// </summary>
         SpeechStreamerHelper SpeechHelper = new SpeechStreamerHelper();
 
+        /// <summary>
+        /// A call back to tell us we need to update the list
+        /// </summary>
         public VoidVoid SoundBoardListUpDate { get; private set; }
 
         /// <summary>
