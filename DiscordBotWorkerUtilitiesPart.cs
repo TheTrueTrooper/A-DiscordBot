@@ -21,6 +21,11 @@ namespace DiscordBot2._0
     partial class DiscordBotWorker
     {
         /// <summary>
+        /// The anime list getter
+        /// </summary>
+        MyAnimeListGetter SureYouWill = new MyAnimeListGetter();
+
+        /// <summary>
         /// The utility tree for utility commands
         /// </summary>
         /// <param name="e"></param>
@@ -30,9 +35,25 @@ namespace DiscordBot2._0
             string[] Args = ArgMaker(e.Message.Text.Remove(0, 2));
             if (Args[0] == "help")
                 e.Channel.SendMessage("Thanks for asking!:kissing_heart:\nFor utilitie Commands.:wrench:\n!!d4 -> rolls dice\n!!d6 -> rolls dice\n!!d8 -> rolls dice\n!!d10 -> rolls dice\n!!d12 -> rolls dice\n!!d20 -> rolls dice\n!!d100 -> rolls dice\n!!Coinflip -> I flip a coin for you baka:military_medal:\n!!Random -> I roll a random number for you (can be between two numbers):slot_machine:");
-            else if (Args[0] == "coinflip")
+            else if (Args.Count() > 2 && Args[0].ToLower() == "animelist")
             {
-                if (Rand.Next(0, 100) < 50)
+                int Number;
+                if (int.TryParse(Args[1], out Number))
+                    GetAnimes(e, Args, Number);
+                else
+                    e.Channel.SendMessage("Please give me the number of results to return.\nYou can follow this with the anime.\nExample !!animelist 1 And you thought there is never a girl online?");
+            }
+            else if (Args.Count() > 2 && Args[0].ToLower() == "mangalist")
+            {
+                int Number;
+                if (int.TryParse(Args[1], out Number))
+                    GetMangas(e, Args, Number);
+                else
+                    e.Channel.SendMessage("Please give me the number of results to return.\nYou can follow this with the manga.\nExample !!mangalist 1 And you thought there is never a girl online?");
+            }
+            else if (Args[0].ToLower() == "coinflip")
+            {
+                if (Rand.Next(0, 101) < 50)
                     e.Channel.SendMessage("I flipped a coin for " + e.User.Mention + ". It came up heads.:military_medal:");
                 else
                     e.Channel.SendMessage("I flipped a coin for " + e.User.Mention + ". It came up tails.:military_medal:");
@@ -87,6 +108,46 @@ namespace DiscordBot2._0
             }
             else return false;
             return true;
+        }
+
+        async void GetAnimes(MessageEventArgs e, string[] Args, int Number)
+        {
+            string temp = Args[2];
+            for (int i = 3; i < Args.Count(); i++)
+            {
+                temp += " " + Args[i];
+            }
+            for (int i = 0; i < Number; i++)
+            {
+                string anime = await SureYouWill.GetAnime(temp, i);
+                if (anime == null)
+                {
+                    if (i == 0)
+                        await e.Channel.SendMessage("Sorry, but no Matches were found!");
+                    break;
+                }
+                await e.Channel.SendMessage(anime);
+            }
+        }
+
+        async void GetMangas(MessageEventArgs e, string[] Args, int Number)
+        {
+            string temp = Args[2];
+            for (int i = 3; i < Args.Count(); i++)
+            {
+                temp += " " + Args[i];
+            }
+            for (int i = 0; i < Number; i++)
+            {
+                string anime = await SureYouWill.GetManga(temp, i);
+                if (anime == null)
+                {
+                    if (i == 0)
+                        await e.Channel.SendMessage("Sorry, but no Matches were found!");
+                    break;
+                }
+                await e.Channel.SendMessage(anime);
+            }
         }
 
     }

@@ -6,60 +6,115 @@ using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Extensions;
+using RestSharp.Deserializers;
 
 namespace DiscordBot2._0
 {
-    public class anime
+    [DeserializeAs(Name = "entry")]
+    public class Anime
     {
-        public List<entry> entry;
-    }
-
-    public class entry
-    {
-        public int id;
-        public string title;
-        public string english;
-        public string synonyms;
-        public ushort episodes;
-        public string type;
-        public string status;
-        public string start_date;
-        public string end_date;
-        public string synopsis;
-        public string image;
+        public int id { get; set; }
+        public string title { get; set; }
+        public string english { get; set; }
+        public string synonyms { get; set; }
+        public int episodes { get; set; }
+        public string score { get; set; }
+        public string type { get; set; }
+        public string status { get; set; }
+        public string start_date { get; set; }
+        public string end_date { get; set; }
+        public string synopsis { get; set; }
+        public string image { get; set; }
     }
 
     internal class AnimeResult
     {
-        internal AnimeResult(anime ResultsIn)
+        internal AnimeResult(List<Anime> ResultsIn)
         {
             Animes = ResultsIn;
         }
 
-        public anime Animes;
+        public List<Anime> Animes;
 
         public string GetResult(int Index)
         {
-            return Index < Animes.entry.Count() ?
-                "Title: " + Animes.entry[Index].title +
-                "\nEnglish: " + Animes.entry[Index].english +
-                "\nSynonyms: " + Animes.entry[Index].synonyms +
-                "\nEpisodes: " + Animes.entry[Index].episodes +
-                "\nType: " + Animes.entry[Index].type +
-                "\nStatus: " + Animes.entry[Index].status +
-                "\nStart Date: " + Animes.entry[Index].start_date +
-                "\nEnd Date: " + Animes.entry[Index].end_date +
-                "\nSynopsis: " + Animes.entry[Index].synopsis +
-                "\nhttp://myanimelist.net/anime/" + Animes.entry[Index].id
-                : "Sorry but there is no Index that high";
+            return Animes != null && Index < Animes.Count() ?
+                "Title: " + Animes[Index].title +
+                "\nEnglish: " + Animes[Index].english +
+                "\nSynonyms: " + Animes[Index].synonyms +
+                "\nEpisodes: " + Animes[Index].episodes +
+                "\nScore: " + Animes[Index].score +
+                "\nType: " + Animes[Index].type +
+                "\nStatus: " + Animes[Index].status +
+                "\nStart Date: " + Animes[Index].start_date +
+                "\nEnd Date: " + Animes[Index].end_date +
+                "\nSynopsis: " + Animes[Index].synopsis.Replace("<br />", "").Replace("[i]", "").Replace("[/i]", "").HtmlDecode() +
+                "\nhttp://myanimelist.net/anime/" + Animes[Index].id
+                : null;
         }
 
         public string GetResults(int Number)
         {
             string Results = "";
-            for (int i = 0; i < Number && i < Animes.entry.Count(); i++)
+            for (int i = 0; i < Number && i < Animes.Count(); i++)
             {
-                Results += "\n" + i + "."  + GetResult(i);
+                Results += "\n" + i + "." + GetResult(i);
+            }
+            return Results;
+        }
+    }
+
+    [DeserializeAs(Name = "entry")]
+    public class Manga
+    {
+        public int id { get; set; }
+        public string title { get; set; }
+        public string english { get; set; }
+        public string synonyms { get; set; }
+        public int chapters { get; set; }
+        public int volumes { get; set; }
+        public string score { get; set; }
+        public string type { get; set; }
+        public string status { get; set; }
+        public string start_date { get; set; }
+        public string end_date { get; set; }
+        public string synopsis { get; set; }
+        public string image { get; set; }
+    }
+
+    internal class MangaResult
+    {
+        internal MangaResult(List<Manga> ResultsIn)
+        {
+            Mangas = ResultsIn;
+        }
+
+        public List<Manga> Mangas;
+
+        public string GetResult(int Index)
+        {
+            return Mangas != null && Index < Mangas.Count() ?
+                "Title: " + Mangas[Index].title +
+                "\nEnglish: " + Mangas[Index].english +
+                "\nSynonyms: " + Mangas[Index].synonyms +
+                "\nChapters: " + Mangas[Index].chapters +
+                "\nVolumes: " + Mangas[Index].volumes +
+                "\nScore: " + Mangas[Index].score +
+                "\nType: " + Mangas[Index].type +
+                "\nStatus: " + Mangas[Index].status +
+                "\nStart Date: " + Mangas[Index].start_date +
+                "\nEnd Date: " + Mangas[Index].end_date +
+                "\nSynopsis: " + Mangas[Index].synopsis.Replace("<br />", "").Replace("[i]", "").Replace("[/i]", "").HtmlDecode() +
+                "\nhttp://myanimelist.net/manga/" + Mangas[Index].id
+                : null;
+        }
+
+        public string GetResults(int Number)
+        {
+            string Results = "";
+            for (int i = 0; i < Number && i < Mangas.Count(); i++)
+            {
+                Results += "\n" + i + "." + GetResult(i);
             }
             return Results;
         }
@@ -68,20 +123,26 @@ namespace DiscordBot2._0
 
     class MyAnimeListGetter
     {
-        RestClient _Client = new RestClient("http://myanimelist.net");
+        static RestClient _Client = new RestClient("http://myanimelist.net");
 
         public MyAnimeListGetter()
         {
-            _Client.Authenticator = new SimpleAuthenticator("user", "The_Trooper", "password", "Jim456852,.,");
+            _Client.Authenticator = new HttpBasicAuthenticator("The_True_Trooper", "Jim456852,.,");
+            _Client.PreAuthenticate = false;
+        }
 
+        public MyAnimeListGetter(string Account, string Password)
+        {
+            _Client.Authenticator = new HttpBasicAuthenticator(Account, Password);
+            _Client.PreAuthenticate = false;
         }
 
         public async Task<AnimeResult> SearchAnime(string Name)
         {
             RestRequest RestRequest = new RestRequest("/api/anime/search.xml", Method.GET);
-            RestRequest.AddParameter("q", Name.Replace(' ', '+'));
+            RestRequest.AddParameter("q", Name, ParameterType.QueryString);
 
-            IRestResponse<anime> Response = await _Client.ExecuteGetTaskAsync<anime>(RestRequest);
+            IRestResponse<List<Anime>> Response = await _Client.ExecuteGetTaskAsync<List<Anime>>(RestRequest);
 
             if (Response.ErrorException != null)
             {
@@ -92,15 +153,36 @@ namespace DiscordBot2._0
             return new AnimeResult(Response.Data);
         }
 
-        public async Task<string> GetAnime(string Name, int Number = 1)
+        public async Task<string> GetAnime(string Name, int Number = 0)
         {
             AnimeResult _AnimeResult = await SearchAnime(Name);
-            string Results = "";
-            for (int i = 0; i<Number && i< _AnimeResult.Animes.entry.Count(); i++)
+            if (_AnimeResult.GetResult(Number) != null)
+                return "\n" + (Number + 1) + "."  + _AnimeResult.GetResult(Number);
+            return null;
+        }
+
+        public async Task<MangaResult> SearchManga(string Name)
+        {
+            RestRequest RestRequest = new RestRequest("/api/manga/search.xml", Method.GET);
+            RestRequest.AddParameter("q", Name, ParameterType.QueryString);
+
+            IRestResponse<List<Manga>> Response = await _Client.ExecuteGetTaskAsync<List<Manga>>(RestRequest);
+
+            if (Response.ErrorException != null)
             {
-                Results += "\n" + i + "."  + _AnimeResult.GetResult(i);
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                throw new ApplicationException(message, Response.ErrorException);
             }
-            return Results;
+
+            return new MangaResult(Response.Data);
+        }
+
+        public async Task<string> GetManga(string Name, int Number = 0)
+        {
+            MangaResult _MangaResult = await SearchManga(Name);
+            if (_MangaResult.GetResult(Number) != null)
+                return "\n" + (Number + 1) + "." + _MangaResult.GetResult(Number);
+            return null;
         }
 
     }

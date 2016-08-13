@@ -100,7 +100,7 @@ namespace DiscordBot2._0
             //ticks info
             Ticker.Elapsed += Tick;
             MaxTickOnNewGames = Rand.Next(30);
-            //CleverResponder = new CleverBotClient("nZ0p5h9x0fNX5BeY", "4ZhNFrukVIWvqFJeBCAOh1nHZltwZgHk");
+            CleverResponder = new CleverBotClient("nZ0p5h9x0fNX5BeY", "4ZhNFrukVIWvqFJeBCAOh1nHZltwZgHk");
 
             //list populating
             ConsoleWrite("Populating lists......");
@@ -117,7 +117,8 @@ namespace DiscordBot2._0
         private async void Connect()
         {
             ConsoleWrite("Connecting client to server......");
-            //CleverResponder.SetNick("Chidori");
+            CleverCreateResponse Temp = await CleverResponder.CreateBot("Chidori");
+            ConsoleWrite("CleveBot Stats: " + Temp.status ?? "failed");
             try
             {
 #if DEBUG

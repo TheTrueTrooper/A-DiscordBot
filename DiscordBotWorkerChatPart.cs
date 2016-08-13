@@ -93,20 +93,20 @@ namespace DiscordBot2._0
             }
             else if (Args[0].ToLower() == "chat")
             {
-                TopTalk(e);
+                //TopTalk(e);
             }
             else return false;
             return true;
         }
 
-        async void TopTalk(MessageEventArgs e)
-        {
-            CleverResponse Answer = await CleverResponder.Ask(e.Message.Text.Remove(0, 7));
-            if (Answer.bSuccess)
-                await e.Channel.SendMessage(Answer.Response);
-            else
-                ConsoleWrite(Answer.Status);
-        }
+        //async void TopTalk(MessageEventArgs e)
+        //{
+        //    CleverResponse Answer = await CleverResponder.Ask(e.Message.Text.Remove(0, 7));
+        //    if (Answer.bSuccess)
+        //        await e.Channel.SendMessage(Answer.Response);
+        //    else
+        //        ConsoleWrite(Answer.Status);
+        //}
 
 
     }
