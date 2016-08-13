@@ -97,7 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CleverBot.cs" />
     <Compile Include="DictionaryDescriptorHelper.cs" />
     <Compile Include="DiscordBotGetPathExt.cs" />
     <Compile Include="DiscordBotWorkerAdminPart.cs" />

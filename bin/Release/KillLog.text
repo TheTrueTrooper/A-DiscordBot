@@ -86,3 +86,54 @@ HResult:-2146233079 Source:System Site:System.Net.WebResponse GetResponse() Mess
  Data:
  
  Help:
+<Error>Level:Bad <Exception>Happened at2016-08-13 12:37:29 PM
+HResult:-2146232000 Source:System.Xml Site:Void Throw(System.Exception) Message:The 'meta' start tag on line 11 position 6 does not match the end tag of 'head'. Line 35, position 3.
+ StackTrace:   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ThrowTagMismatch(NodeData startTag)
+   at System.Xml.XmlTextReaderImpl.ParseEndElement()
+   at System.Xml.XmlTextReaderImpl.ParseElementContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r)
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r, LoadOptions o)
+   at System.Xml.Linq.XDocument.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XDocument.Parse(String text, LoadOptions options)
+   at RestSharp.Deserializers.XmlDeserializer.Deserialize[T](IRestResponse response)
+   at RestSharp.RestClient.Deserialize[T](IRestRequest request, IRestResponse raw)
+ Data:
+ 
+ Help:
+<Error>Level:Bad <Exception>Happened at2016-08-13 12:37:32 PM
+HResult:-2146232000 Source:System.Xml Site:Void Throw(System.Exception) Message:The 'meta' start tag on line 11 position 6 does not match the end tag of 'head'. Line 35, position 3.
+ StackTrace:   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ThrowTagMismatch(NodeData startTag)
+   at System.Xml.XmlTextReaderImpl.ParseEndElement()
+   at System.Xml.XmlTextReaderImpl.ParseElementContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r)
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r, LoadOptions o)
+   at System.Xml.Linq.XDocument.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XDocument.Parse(String text, LoadOptions options)
+   at RestSharp.Deserializers.XmlDeserializer.Deserialize[T](IRestResponse response)
+   at RestSharp.RestClient.Deserialize[T](IRestRequest request, IRestResponse raw)
+ Data:
+ 
+ Help:
+<Error>Level:Bad <Exception>Happened at2016-08-13 12:37:50 PM
+HResult:-2146232000 Source:System.Xml Site:Void Throw(System.Exception) Message:The 'meta' start tag on line 11 position 6 does not match the end tag of 'head'. Line 35, position 3.
+ StackTrace:   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ThrowTagMismatch(NodeData startTag)
+   at System.Xml.XmlTextReaderImpl.ParseEndElement()
+   at System.Xml.XmlTextReaderImpl.ParseElementContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r)
+   at System.Xml.Linq.XContainer.ReadContentFrom(XmlReader r, LoadOptions o)
+   at System.Xml.Linq.XDocument.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XDocument.Parse(String text, LoadOptions options)
+   at RestSharp.Deserializers.XmlDeserializer.Deserialize[T](IRestResponse response)
+   at RestSharp.RestClient.Deserialize[T](IRestRequest request, IRestResponse raw)
+ Data:
+ 
+ Help:

@@ -14,7 +14,7 @@ using Discord.Modules;
 using Discord.Net;
 using System.Timers;
 using Discord.API.Converters;
-using CleverBot;
+
 
 
 namespace DiscordBot2._0
@@ -22,7 +22,6 @@ namespace DiscordBot2._0
     // the chat part for
     partial class DiscordBotWorker
     {
-        CleverBotClient CleverResponder;
 
         /// <summary>
         /// chat tree
