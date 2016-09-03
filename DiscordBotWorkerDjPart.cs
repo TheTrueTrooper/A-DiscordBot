@@ -18,6 +18,7 @@ using NAudio;
 using NAudio.Wave;
 using NAudio.CoreAudioApi;
 using NAudio.FileFormats;
+using System.Diagnostics;
 
 namespace DiscordBot2._0
 {
@@ -25,7 +26,7 @@ namespace DiscordBot2._0
     partial class DiscordBotWorker
     {
         /// <summary>
-        /// Our Speach engien
+        /// Our Speech engien
         /// </summary>
         SpeechStreamerHelper SpeechHelper = new SpeechStreamerHelper();
 
@@ -177,7 +178,6 @@ namespace DiscordBot2._0
 
 
             TheStream?.Dispose();
-            TheStream?.Close();
 
         }
 
@@ -227,14 +227,11 @@ namespace DiscordBot2._0
             { }
         }
 
-        async Task SendAudioBuffer(ulong ServerLight, Channel testout, MemoryStream Buffer)
+        async Task SendAudioBuffer(ulong ServerLight, Channel testout, MemoryStream Buffer, int rate = 48000)
         {
-            await SendAudioBuffer(ServerLight, testout, Buffer, 48000);
-        }
-
-        async Task SendAudioBuffer(ulong ServerLight, Channel testout, MemoryStream Buffer, int rate)
-        {
-            var channelCount = MainPlug.GetService<AudioService>().Config.Channels; // Get the number of AudioChannels our AudioService has been configured to use.
+            try
+            {
+                var channelCount = MainPlug.GetService<AudioService>().Config.Channels; // Get the number of AudioChannels our AudioService has been configured to use.
 
             //grab an audio client and store
             IAudioClient Temp = await MainPlug.GetService<AudioService>().Join(testout);
@@ -266,16 +263,29 @@ namespace DiscordBot2._0
                     
                 }
             }
+            }
+            catch
+            { }
+            
         }
 
         ////will use for streaming later
-        //public void SendAudio(string pathOrUrl)
+        //async void SendAudio(ulong ServerLight, Channel testout, string pathOrUrl, int rate = 48000)
         //{
+        //    var channelCount = MainPlug.GetService<AudioService>().Config.Channels; // Get the number of AudioChannels our AudioService has been configured to use.
+
+        //    //grab an audio client and store
+        //    IAudioClient Temp = await MainPlug.GetService<AudioService>().Join(testout);
+        //    if (Radios.ContainsKey(ServerLight))
+        //        Radios[ServerLight] = Temp;
+        //    else
+        //        Radios.Add(ServerLight, Temp);
+
         //    var process = Process.Start(new ProcessStartInfo
         //    { // FFmpeg requires us to spawn a process and hook into its stdout, so we will create a Process
         //        FileName = "ffmpeg",
-        //        Arguments = $"-i {pathOrUrl} " + // Here we provide a list of arguments to feed into FFmpeg. -i means the location of the file/URL it will read from
-        //                    "-f s16le -ar 48000 -ac 2 pipe:1", // Next, we tell it to output 16-bit 48000Hz PCM, over 2 channels, to stdout.
+        //        Arguments = "-i "+ pathOrUrl + " " + // Here we provide a list of arguments to feed into FFmpeg. -i means the location of the file/URL it will read from
+        //                    "-f s16le -ar "+ rate + " -ac 2 pipe:1", // Next, we tell it to output 16-bit 48000Hz PCM, over 2 channels, to stdout.
         //        UseShellExecute = false,
         //        RedirectStandardOutput = true // Capture the stdout of the process
         //    });
@@ -293,9 +303,9 @@ namespace DiscordBot2._0
         //        if (byteCount == 0) // FFmpeg did not output anything
         //            break; // Break out of the while(true) loop, since there was nothing to read.
 
-        //        _vClient.Send(buffer, 0, byteCount); // Send our data to Discord
+        //        Radios[ServerLight].Send(buffer, 0, byteCount); // Send our data to Discord
         //    }
-        //    _vClient.Wait(); // Wait for the Voice Client to finish sending data, as ffMPEG may have already finished buffering out a song, and it is unsafe to return now.
+        //    Radios[ServerLight].Wait(); // Wait for the Voice Client to finish sending data, as ffMPEG may have already finished buffering out a song, and it is unsafe to return now.
         //}
 
 

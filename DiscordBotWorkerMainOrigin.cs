@@ -14,6 +14,7 @@ using Discord.Modules;
 using Discord.Net;
 using System.Timers;
 using Discord.API.Converters;
+using RestSharp.Extensions;
 
 
 
@@ -26,7 +27,7 @@ namespace DiscordBot2._0
     partial class DiscordBotWorker
     {
         /// <summary>
-        /// 
+        /// a store of old commands so we can reque them if needed
         /// </summary>
         Dictionary<ulong, MessageEventArgs> UsersLast = new Dictionary<ulong, MessageEventArgs>();
 
@@ -85,6 +86,42 @@ namespace DiscordBot2._0
                 x.BufferLength = 10000;
             });
 
+            //configsfor things
+            _MyAnimeListClient = new MyAnimeListClient("The_True_Trooper", "Jim456852,.,");
+            Manga.ToStringOverRide = x =>
+            {
+                return x != null ?
+                    "```Title: " + x.title +
+                    "\nEnglish: " + x.english +
+                    "\nSynonyms: " + x.synonyms +
+                    "\nChapters: " + x.chapters +
+                    "\nVolumes: " + x.volumes +
+                    "\nScore: " + x.score +
+                    "\nType: " + x.type +
+                    "\nStatus: " + x.status +
+                    "\nStart Date: " + x.start_date +
+                    "\nEnd Date: " + x.end_date +
+                    "\nSynopsis: " + x.synopsis.Replace("<br />", "").Replace("[i]", "").Replace("[/i]", "").HtmlDecode() + "```" +
+                    "\nhttp://myanimelist.net/manga/" + x.id
+                    : null;
+            };
+            Anime.ToStringOverRide = x =>
+            {
+                return x != null ?
+                    "```Title: " + x.title +
+                    "\nEnglish: " + x.english +
+                    "\nSynonyms: " + x.synonyms +
+                    "\nEpisodes: " + x.episodes +
+                    "\nScore: " + x.score +
+                    "\nType: " + x.type +
+                    "\nStatus: " + x.status +
+                    "\nStart Date: " + x.start_date +
+                    "\nEnd Date: " + x.end_date +
+                    "\nSynopsis: " + x.synopsis.Replace("<br />", "").Replace("[i]", "").Replace("[/i]", "").HtmlDecode() + "```" +
+                    "\nhttp://myanimelist.net/anime/" + x.id
+                    : null;
+            };
+
             //bot callbacks
             MasterAndCommander = new ControlPannelCommand(_MasterAndCommander);
             SoundBoardListUpDate = new VoidVoid(_SoundBoardListUpDate);
@@ -95,6 +132,14 @@ namespace DiscordBot2._0
             MainPlug.JoinedServer += JoinServer;
             MainPlug.UserUpdated += UserUpHello;
             MainPlug.MessageSent += MessSent;
+            MainPlug.RoleCreated += RoleCreate;
+            MainPlug.RoleDeleted += RoleDelete;
+            //MainPlug.RoleUpdated += RoleUpdate;
+            MainPlug.UserBanned += UserBanned;
+            MainPlug.UserUnbanned += UserUnbanned;
+            MainPlug.ChannelCreated += ChannelCreated;
+            MainPlug.ChannelDestroyed += ChannelDeleted;
+            //MainPlug.ChannelUpdated += ChannelUpdated;
 
             ConsoleWrite("Building support classes......");
             //ticks info
@@ -112,6 +157,7 @@ namespace DiscordBot2._0
 
             Connect();
         }
+
 
         private async void Connect()
         {
@@ -250,6 +296,8 @@ namespace DiscordBot2._0
                     BDoIKnow = AdminTree(e);
                 else if (e.Message.Text[1] == '~')
                     BDoIKnow = ChatTree(e);
+                else if (e.Message.Text[1] == '$')
+                    BDoIKnow = MemeTree(e);
                 if (!BDoIKnow)
                     e.Channel.SendMessage("Sorry;\nI dont follow,\nbut its not a problem:dancer:");
                 else if (e.Message.User != null && e.Message.Text.ToLower() != "!again")
@@ -263,6 +311,79 @@ namespace DiscordBot2._0
             }
         }
 
+        //admin logging
+
+        void RoleCreate(object Sender, RoleEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.BanMembers || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Role + " was created at " + DateTime.UtcNow + "utc" + Admins + "```");
+        }
+
+        void RoleDelete(object Sender, RoleEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.BanMembers || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Role + " was Deleted at " + DateTime.UtcNow + "utc" + Admins + "```");
+        }
+
+        void RoleUpdate(object Sender, RoleUpdatedEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.BanMembers || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Before + " was Updated to "+ e.After + " at " + DateTime.UtcNow + "utc" + Admins + "```");
+        }
+
+        void UserBanned(object Sender, UserEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.BanMembers || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x=> { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.User.Name + " was Banned at " + DateTime.UtcNow + Admins + "utc" + ":hammer:```");
+        }
+
+        void UserUnbanned(object Sender, UserEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.BanMembers || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.User.Name + " was Unbannedd at " + DateTime.UtcNow + "utc" + Admins + ":hammer:```");
+        }
+
+        void ChannelCreated(object Sender, ChannelEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.ManageChannels || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Channel.Name + " was Created at " + DateTime.UtcNow + "utc" + Admins + ":hammer:```");
+        }
+
+        void ChannelDeleted(object Sender, ChannelEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.ManageChannels || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Channel.Name + " was Deleted at " + DateTime.UtcNow + "utc" + Admins + ":hammer:```");
+        }
+
+        void ChannelUpdated(object Sender, ChannelUpdatedEventArgs e)
+        {
+            if (e.Server.FindChannels("adminlogs", ChannelType.Text, true).ToList().Count == 0)
+                e.Server.CreateChannel("adminlogs", ChannelType.Text);
+            string Admins = "\nAdmins on:";
+            e.Server.Users.Where(x => { return x.Roles.Any(y => y.Permissions.ManageChannels || y.Permissions.Administrator) && x.Status.Value == UserStatus.Online; }).ToList().ForEach(x => { Admins += "\n" + x.Name; });
+            e.Server.FindChannels("adminlogs", ChannelType.Text).First().SendMessage("```" + e.Before.Name + " was updated to " + e.After.Name + " at " + DateTime.UtcNow + "utc" + Admins + ":hammer:```");
+        }
 
         /////////////////////////////////////////////////////////////////////////////utility//////////////////////////////////////////////////////////
 
@@ -403,6 +524,7 @@ namespace DiscordBot2._0
             }
             
         }
+
         
     }
 }

@@ -51,6 +51,10 @@
       <HintPath>..\packages\Discord.Net.Modules.0.9.4\lib\net45\Discord.Net.Modules.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ewk.Extensions, Version=1.1.4759.21149, Culture=neutral, PublicKeyToken=0ffe897e6e5722cd, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ewk.Extensions.1.1.4759.21149\lib\net45\Ewk.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ExtraConstraints, Version=1.10.8.0, Culture=neutral, PublicKeyToken=8b9afd7f380a7d64, processorArchitecture=MSIL">
       <HintPath>..\packages\ExtraConstraints.Fody.1.10.8\lib\dotnet\ExtraConstraints.dll</HintPath>
       <Private>False</Private>
@@ -81,6 +85,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -103,6 +112,7 @@
     <Compile Include="DiscordBotWorkerChatPart.cs" />
     <Compile Include="DiscordBotWorkerMainOrigin.cs" />
     <Compile Include="DiscordBotWorkerDjPart.cs" />
+    <Compile Include="DiscordBotWorkerMemePart.cs" />
     <Compile Include="DiscordBotWorkerUtilitiesPart.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -110,6 +120,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Memer.cs" />
     <Compile Include="MyAnimeListGetter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +152,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_BlankMemes_\BenderBirthDayParty.jpg" />
+    <Content Include="_BlankMemes_\BenderCam.jpg" />
+    <Content Include="_BlankMemes_\BenderGent.jpg" />
+    <Content Include="_BlankMemes_\BenderPimp.jpg" />
+    <Content Include="_BlankMemes_\Fry51CupsCof.jpg" />
+    <Content Include="_BlankMemes_\FryAndBGuy.jpg" />
+    <Content Include="_BlankMemes_\FryBenderRetroParty.jpg" />
+    <Content Include="_BlankMemes_\FryCrazy.jpg" />
+    <Content Include="_BlankMemes_\FryNotSure.jpg" />
+    <Content Include="_BlankMemes_\FryTakeMoney.jpg" />
+    <Content Include="_BlankMemes_\JackSNoneLeft.jpg" />
+    <Content Include="_BlankMemes_\JackSWhy.jpg" />
+    <Content Include="_BlankMemes_\PonyFrySure.jpg" />
     <Content Include="_Images_\images2.jpg" />
     <Content Include="_Images_\images3.jpg" />
     <Content Include="_Images_\maxresdefault.jpg" />
@@ -152,6 +176,7 @@
     <Content Include="_SoundBoard_\steel FUUCK.mp3" />
     <Content Include="_SoundBoard_\turok-omgomgomg.mp3" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

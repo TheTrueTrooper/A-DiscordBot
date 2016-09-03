@@ -7,9 +7,16 @@ namespace DiscordBot2._0
     /// </summary>
     static class PathGetter
     {
+        public static string TempImage { get { return Environment.CurrentDirectory + @"\TempImage.jpg";  } }
+
         public static string GetSoundBoardPath(string file)
         {
             return Environment.CurrentDirectory + @"\..\..\_SoundBoard_\" + file;
+        }
+
+        public static string GetMemePath(string file)
+        {
+            return Environment.CurrentDirectory + @"\..\..\_BlankMemes_\" + file;
         }
 
         public static string GetImagePath(string file)

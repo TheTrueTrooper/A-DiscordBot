@@ -90,10 +90,10 @@ namespace DiscordBot2._0
                     e.Channel.SendMessage(e.User.Mention + " Smites with a paper fan, but misses!");
                 }
             }
-            else if (Args[0].ToLower() == "chat")
-            {
-                //TopTalk(e);
-            }
+            //else if (Args[0].ToLower() == "chat")
+            //{
+            //    //TopTalk(e);
+            //}
             else return false;
             return true;
         }

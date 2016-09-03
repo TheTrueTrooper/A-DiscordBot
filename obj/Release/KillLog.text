@@ -17,3 +17,37 @@
  Data:
  
  Help:
+<Error>Level:Bad <Exception>Happened at2016-08-29 4:23:50 AM
+HResult:-2147024894 Source:DiscordBot2.0 Site:Void .ctor(DiscordBot2._0.Form1, System.String[], System.Collections.Generic.Dictionary`2[System.String,DiscordBot2._0.DictionaryDescriptorHelper`1[System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.List`1[System.String]]]]) Message:Could not load file or assembly 'Discord.Net, Version=0.9.4.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+ StackTrace:   at DiscordBot2._0.DiscordBotWorker..ctor(Form1 ControlPannel, String[] _GamesToPlay, Dictionary`2 _SoundBoardBinding)
+   at DiscordBot2._0.Form1._Bu_Connect_Click(Object sender, EventArgs e) in C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\Form1.cs:line 448
+   at System.Windows.Forms.Control.OnClick(EventArgs e)
+   at System.Windows.Forms.Button.OnClick(EventArgs e)
+   at System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   at System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   at System.Windows.Forms.Control.WndProc(Message& m)
+   at System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   at System.Windows.Forms.Button.WndProc(Message& m)
+   at System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   at System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+ Data:
+ 
+ Help:
+<Error>Level:Bad <Exception>Happened at2016-08-29 4:23:52 AM
+HResult:-2147024894 Source:DiscordBot2.0 Site:Void .ctor(DiscordBot2._0.Form1, System.String[], System.Collections.Generic.Dictionary`2[System.String,DiscordBot2._0.DictionaryDescriptorHelper`1[System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.List`1[System.String]]]]) Message:Could not load file or assembly 'Discord.Net, Version=0.9.4.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+ StackTrace:   at DiscordBot2._0.DiscordBotWorker..ctor(Form1 ControlPannel, String[] _GamesToPlay, Dictionary`2 _SoundBoardBinding)
+   at DiscordBot2._0.Form1._Bu_Connect_Click(Object sender, EventArgs e) in C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\Form1.cs:line 448
+   at System.Windows.Forms.Control.OnClick(EventArgs e)
+   at System.Windows.Forms.Button.OnClick(EventArgs e)
+   at System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   at System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   at System.Windows.Forms.Control.WndProc(Message& m)
+   at System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   at System.Windows.Forms.Button.WndProc(Message& m)
+   at System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   at System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+ Data:
+ 
+ Help:

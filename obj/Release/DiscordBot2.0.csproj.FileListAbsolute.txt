@@ -24,3 +24,6 @@ C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\obj\Release\DiscordBot2._0.P
 C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\obj\Release\DiscordBot2.0.csproj.GenerateResource.Cache
 C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\obj\Release\DiscordBot2.0.exe
 C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\obj\Release\DiscordBot2.0.pdb
+C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\bin\Release\Ewk.Extensions.dll
+C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\Angelo\Desktop\DiscordBot2.0\DiscordBot2.0\bin\Release\System.Net.Http.Formatting.xml

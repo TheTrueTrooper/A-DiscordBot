@@ -23,7 +23,7 @@ namespace DiscordBot2._0
         /// <summary>
         /// The anime list getter
         /// </summary>
-        MyAnimeListGetter SureYouWill = new MyAnimeListGetter();
+        MyAnimeListClient _MyAnimeListClient;
 
         /// <summary>
         /// The utility tree for utility commands
@@ -117,16 +117,13 @@ namespace DiscordBot2._0
             {
                 temp += " " + Args[i];
             }
-            for (int i = 0; i < Number; i++)
+            AnimeResult anime = await _MyAnimeListClient.SearchAnime(temp);
+            if (anime.Count == 0)
+                await e.Channel.SendMessage("Sorry, but no Matches were found!");
+            for (int i = 0; i < Number && i < anime.Count; i++)
             {
-                string anime = await SureYouWill.GetAnime(temp, i);
-                if (anime == null)
-                {
-                    if (i == 0)
-                        await e.Channel.SendMessage("Sorry, but no Matches were found!");
-                    break;
-                }
-                await e.Channel.SendMessage(anime);
+                await e.Channel.SendMessage((i + 1) + "." + anime[i]);
+                Thread.Sleep(10);
             }
         }
 
@@ -137,18 +134,16 @@ namespace DiscordBot2._0
             {
                 temp += " " + Args[i];
             }
-            for (int i = 0; i < Number; i++)
+            MangaResult manga = await _MyAnimeListClient.SearchManga(temp);
+            if (manga.Count == 0)
+                await e.Channel.SendMessage("Sorry, but no Matches were found!");
+            for (int i = 0; i < Number && i < manga.Count; i++)
             {
-                string anime = await SureYouWill.GetManga(temp, i);
-                if (anime == null)
-                {
-                    if (i == 0)
-                        await e.Channel.SendMessage("Sorry, but no Matches were found!");
-                    break;
-                }
-                await e.Channel.SendMessage(anime);
+                await e.Channel.SendMessage((i + 1) + "." + manga[i]);
+                Thread.Sleep(10);
             }
         }
+
 
     }
 }

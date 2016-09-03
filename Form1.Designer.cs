@@ -188,7 +188,6 @@
             // 
             // _LB_GamesToPlay
             // 
-            this._LB_GamesToPlay.FormattingEnabled = true;
             this._LB_GamesToPlay.ItemHeight = 16;
             this._LB_GamesToPlay.Location = new System.Drawing.Point(806, 34);
             this._LB_GamesToPlay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

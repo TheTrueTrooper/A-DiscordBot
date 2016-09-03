@@ -324,6 +324,9 @@ namespace DiscordBot2._0
                 //do Nothing if it fails
             }
 
+            //foreach(System.Speech.Synthesis.InstalledVoice R in new System.Speech.Synthesis.SpeechSynthesizer().GetInstalledVoices())
+            //_RTB_ConsoleOut.AppendText(R.VoiceInfo.Name);
+
             if (_Crashed)
                 _RTB_ConsoleOut.AppendText("This IS a FULL System crash RESTART! CHECK THE LOGS DING BAT -> "+ Environment.CurrentDirectory + "\\KillLog.text");
 
