@@ -3,7 +3,7 @@ A Ruff First look at a bot with Text To Voice, SoundBoard, Chat Opts, and Utilit
 
 A Simple Chat Bot written to manage a channel I had and used.
 
---------------<Neat things it can do>--------------
+--------------Neat things it can do--------------
 
 -all runs async programing
 
@@ -21,11 +21,11 @@ A Simple Chat Bot written to manage a channel I had and used.
 
 -a sound board with bindable sounds of mp3. and alike.
 
---------------<Things i was working on>--------------
+--------------Things i was working on--------------
 
 -Music from soundcloud (small prob with format if I ever go back)
 
---------------<Things I want to add>--------------
+--------------Things I want to add--------------
 
 -Some Game Stats API
 
