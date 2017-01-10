@@ -87,7 +87,7 @@ namespace DiscordBot2._0
             });
 
             //configsfor things
-            _MyAnimeListClient = new MyAnimeListClient("The_True_Trooper", "Jim456852,.,");
+            _MyAnimeListClient = new MyAnimeListClient("User", "PASS");
             Manga.ToStringOverRide = x =>
             {
                 return x != null ?
@@ -166,7 +166,7 @@ namespace DiscordBot2._0
             try
             {
 #if DEBUG
-                await MainPlug.Connect("MTkyMzU1Mjk4MTI2NTk0MDU4.CkHoVA.WGJ3UqihFndW0w-Ch01Sih04L6o");
+                await MainPlug.Connect("Test Key");
 #else
                 await MainPlug.Connect(_ControlPannel.UseToken);
 #endif
