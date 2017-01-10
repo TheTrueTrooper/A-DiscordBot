@@ -113,7 +113,7 @@
             this._TB_BotTokenSet.Name = "_TB_BotTokenSet";
             this._TB_BotTokenSet.Size = new System.Drawing.Size(475, 22);
             this._TB_BotTokenSet.TabIndex = 3;
-            this._TB_BotTokenSet.Text = "MTkyMzYxMTEzMDAwNzM4ODI1.CnLYVA.pE4NaLmrA_-Qka7dkwWz-bJErB4";
+            this._TB_BotTokenSet.Text = "";
             // 
             // label2
             // 
