@@ -7,7 +7,7 @@ Neat things it can do
 
 -all runs async programing
 
--a neat totally !packageable! and easy to use api wrapper for Anime data site. Can grab xml data from site.
+-a neat totally !packageable! and easy to use api wrapper for data sites used site. Can grab xml data from site.
 
 -a neat text to voice that got abused 
 
@@ -24,3 +24,17 @@ Neat things it can do
 Things i was working on
 
 -Music from soundcloud (small prob with format if I ever go back)
+
+Things I want to add
+
+-Some Game Stats API
+
+-Small mini games with SQL tracking for stats
+
+-A weather API
+
+-Temp Bans and Muting
+
+-Google API music or snag from site if costly. (for music)
+
+-The posiblity of cross platform talk (skype to discord to skype or vicevers)
