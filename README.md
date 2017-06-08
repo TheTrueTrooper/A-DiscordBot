@@ -1,5 +1,5 @@
 # A-Lame-DiscordBot
-A Ruff First look at a bot with Text To Voice, SoundBoard, Chat Opts, and Utilities. The project started as a ruff look at the bots and grew from there.
+A Ruff First look at a bot with Text To Voice, SoundBoard, Chat Opts, and Utilities. The project started as a ruff look at the bots. This was more of a respose to a chalange that was programmed mostly as a joke. Some features were added at friends requests.
 
 A Simple Chat Bot written to manage a channel I had and used.
 
@@ -35,6 +35,12 @@ A Simple Chat Bot written to manage a channel I had and used.
 
 -Temp Bans and Muting
 
--Google API music or snag from site if costly. (for music)
+-Google API music or snag from site. (for music)
 
 -The posiblity of cross platform talk (skype to discord to skype or vicevers)
+
+--------------Things I need to do--------------
+
+-Fix the API for Anime look ups (changed while i was away on other things)
+
+-Finish transfer the text settings to one xml rather than the many seperate files
